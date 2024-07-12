@@ -29,3 +29,15 @@ jobs:
                 pip install flake8
                 flake8 module/ tests/
               continue-on-error: true
+     
+    DEV:
+      name: Deploy to Dev
+      if: github.event_name == 'pull_request'
+      needs: [build]
+      runs-on: ubuntu-latest
+      environment:
+        name: DEV
+        url: 'http://dev.mymodel.endpoint'
+      steps:
+        - name: Deploy
+          run: echo I am deploying to dev
